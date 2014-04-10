@@ -303,9 +303,7 @@ public class Tools {
 //        List<Long> primeFactors = primeFactors(n);
         List<Long> primeFactors = primeFactors(n);
 
-
         List<Integer> powers = Lists.newArrayList();
-
 
         long current = primeFactors.get(0);
 
@@ -333,5 +331,45 @@ public class Tools {
         return factorsCnt;
 
     }
+
+    public static void addNumberToBigSum(int[] bigSum, String bigNumber) {
+        int length = bigNumber.length();
+        for (int i = 0; i < length; i++) {
+            addNumberToBigSum(bigSum, Character.getNumericValue(bigNumber.charAt(length - i - 1)), i);
+        }
+    }
+
+    public static void addNumberToBigSum(int[] bigSum, int toAdd, int start) {
+
+//        System.out.println("adding " + toAdd);
+        int numberToAdd = toAdd;
+
+        for (int i = start; i < bigSum.length; i++) {
+            if (numberToAdd == 0) {
+                break;
+            } else {
+                int sum = bigSum[i] + numberToAdd;
+                numberToAdd = sum / 10;
+                bigSum[i] = sum % 10;
+            }
+        }
+
+    }
+
+    public static void printArrayRev(int[] ar) {
+        for (int i = 0; i < ar.length; i++) {
+            System.out.printf("%d", ar[ar.length - i - 1]);
+        }
+        System.out.println("");
+
+    }
+    public static void printArray(int[] ar) {
+        for (int i = 0; i < ar.length; i++) {
+            System.out.printf("%d", ar[i]);
+        }
+        System.out.println("");
+
+    }
+
 }
 

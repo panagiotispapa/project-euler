@@ -142,4 +142,24 @@ public class ToolsTest {
     public void testPrimeFactors() throws Exception {
         assertThat(primeFactors(13195)).containsOnly(5L, 7L, 13L, 29L);
     }
+
+    @Test
+    public void testAddNumberToBigSum() throws Exception {
+        int[] bigSum = new int[100];
+
+        printArrayRev(bigSum);
+
+        addNumberToBigSum(bigSum, 4, 0);
+        addNumberToBigSum(bigSum, 6, 0);
+        printArrayRev(bigSum);
+        addNumberToBigSum(bigSum, 3, 0);
+        printArrayRev(bigSum);
+        addNumberToBigSum(bigSum, 9, 0);
+        printArrayRev(bigSum);
+        addNumberToBigSum(bigSum, 19, 0);
+        printArrayRev(bigSum);
+        addNumberToBigSum(bigSum, "12342");
+        printArrayRev(bigSum);
+    }
+
 }
