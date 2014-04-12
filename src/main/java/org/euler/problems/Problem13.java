@@ -1,9 +1,7 @@
 package org.euler.problems;
 
-import org.euler.util.Tools;
-
-import static java.lang.Character.getNumericValue;
-import static org.euler.util.Tools.*;
+import static org.euler.util.Tools.addNumberTo;
+import static org.euler.util.Tools.printArrayRev;
 
 public class Problem13 {
 
@@ -120,7 +118,7 @@ public class Problem13 {
         for (int i = 0; i < length/50; i++) {
 //            System.out.println(numbers.substring(i*50, (i+1)*50));
 //
-            addNumberToBigSum(bigSum, numbers.substring(i*50, (i+1)*50));
+            addNumberTo(bigSum, numbers.substring(i * 50, (i + 1) * 50));
 
 //            printArrayRev(bigSum);
 

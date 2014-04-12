@@ -45,6 +45,14 @@ public class Tools {
         return a % 2 == 0;
     }
 
+    public static boolean isEven(int a) {
+        return a % 2 == 0;
+    }
+
+    public static boolean isEven(long a) {
+        return a % 2 == 0;
+    }
+
     public static boolean isOdd(Integer a) {
         return a % 2 == 1;
     }
@@ -332,16 +340,15 @@ public class Tools {
 
     }
 
-    public static void addNumberToBigSum(int[] bigSum, String bigNumber) {
-        int length = bigNumber.length();
+    public static void addNumberTo(int[] bigSum, String number) {
+        int length = number.length();
         for (int i = 0; i < length; i++) {
-            addNumberToBigSum(bigSum, Character.getNumericValue(bigNumber.charAt(length - i - 1)), i);
+            addNumberTo(bigSum, Character.getNumericValue(number.charAt(length - i - 1)), i);
         }
     }
 
-    public static void addNumberToBigSum(int[] bigSum, int toAdd, int start) {
+    public static void addNumberTo(int[] bigSum, int toAdd, int start) {
 
-//        System.out.println("adding " + toAdd);
         int numberToAdd = toAdd;
 
         for (int i = start; i < bigSum.length; i++) {
@@ -356,6 +363,44 @@ public class Tools {
 
     }
 
+    public static void multiplyBy(int[] bigNumber, int multiplier) {
+
+        int numberToAdd = 0;
+
+        for (int i = 0; i < bigNumber.length; i++) {
+
+            int product = bigNumber[i] * multiplier + numberToAdd;
+
+            numberToAdd = product / 10;
+            bigNumber[i] = product % 10;
+        }
+    }
+
+    public static int[] factorialBig(int number) {
+
+        int[] bigNumber = new int[10000];
+
+        bigNumber[0] = 1;
+
+        for (int i = 1; i <= number; i++) {
+            multiplyBy(bigNumber, i);
+        }
+
+        return bigNumber;
+    }
+    public static int[] power(int base, int power) {
+
+        int[] bigNumber = new int[10000];
+
+        bigNumber[0] = base;
+
+        for (int i = 0; i < power - 1; i++) {
+            multiplyBy(bigNumber, base);
+        }
+
+        return bigNumber;
+    }
+
     public static void printArrayRev(int[] ar) {
         for (int i = 0; i < ar.length; i++) {
             System.out.printf("%d", ar[ar.length - i - 1]);
@@ -363,12 +408,52 @@ public class Tools {
         System.out.println("");
 
     }
+
     public static void printArray(int[] ar) {
         for (int i = 0; i < ar.length; i++) {
             System.out.printf("%d", ar[i]);
         }
         System.out.println("");
 
+    }
+
+    public static long addDigits(int[] bigNumber) {
+        long sum = 0;
+        for (int digit : bigNumber) {
+            sum += digit;
+        }
+        return sum;
+    }
+
+    public static String strValue(int[] bigNumber) {
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = bigNumber.length - 1; i >= 0; i--) {
+            builder.append(bigNumber[i]);
+        }
+
+        return builder.toString();
+    }
+
+    public static long nextCollatz(long number) {
+
+        if (isEven(number)) {
+            return number / 2;
+        } else {
+            return 3 * number + 1;
+        }
+
+    }
+
+    public static long lengthOfCollatz(long number) {
+
+        long size = 1;
+        long current = nextCollatz(number);
+        while (current > 1) {
+            current = nextCollatz(current);
+            size++;
+        }
+        return size + 1;
     }
 
 }

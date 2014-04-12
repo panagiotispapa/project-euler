@@ -3,6 +3,7 @@ package org.euler.util;
 import org.junit.Test;
 
 import static java.util.Arrays.asList;
+import static java.util.Arrays.binarySearch;
 import static org.euler.util.Tools.*;
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -147,19 +148,74 @@ public class ToolsTest {
     public void testAddNumberToBigSum() throws Exception {
         int[] bigSum = new int[100];
 
-        printArrayRev(bigSum);
+        addNumberTo(bigSum, 4, 0);
+        addNumberTo(bigSum, 6, 0);
+        addNumberTo(bigSum, 3, 0);
+        addNumberTo(bigSum, 9, 0);
+        addNumberTo(bigSum, 19, 0);
+//        System.out.println(strValue(bigSum));
+        assertThat(strValue(bigSum)).endsWith("00041");
 
-        addNumberToBigSum(bigSum, 4, 0);
-        addNumberToBigSum(bigSum, 6, 0);
-        printArrayRev(bigSum);
-        addNumberToBigSum(bigSum, 3, 0);
-        printArrayRev(bigSum);
-        addNumberToBigSum(bigSum, 9, 0);
-        printArrayRev(bigSum);
-        addNumberToBigSum(bigSum, 19, 0);
-        printArrayRev(bigSum);
-        addNumberToBigSum(bigSum, "12342");
-        printArrayRev(bigSum);
+        addNumberTo(bigSum, "12342");
+//        System.out.println(strValue(bigSum));
+        assertThat(strValue(bigSum)).endsWith("0012383");
+
     }
 
+    @Test
+    public void testMultiplyBy() throws Exception {
+        int[] bigNumber = new int[100];
+
+        bigNumber[1] = 4;
+        bigNumber[0] = 3;
+
+        multiplyBy(bigNumber, 2);
+
+        assertThat(strValue(bigNumber)).endsWith("00086");
+        multiplyBy(bigNumber, 3);
+        assertThat(strValue(bigNumber)).endsWith("000258");
+
+        multiplyBy(bigNumber, 12);
+        assertThat(strValue(bigNumber)).endsWith("0003096");
+        System.out.println(strValue(bigNumber));
+    }
+
+    @Test
+    public void testFactorialBig() throws Exception {
+//        System.out.println(strValue(factorialBig(10)));
+        assertThat(strValue(factorialBig(10))).endsWith("0003628800");
+        assertThat(addDigits(factorialBig(10))).isEqualTo(27);
+    }
+
+    @Test
+    public void testAddDigits() throws Exception {
+
+        int[] bigNumber = new int[100];
+
+        bigNumber[2] = 9;
+        bigNumber[1] = 4;
+        bigNumber[0] = 3;
+
+        assertThat(addDigits(bigNumber)).isEqualTo(9 + 4 + 3);
+    }
+
+    @Test
+    public void testPower() throws Exception {
+        assertThat(strValue(power(2, 3))).endsWith("0008");
+        assertThat(strValue(power(2, 5))).endsWith("0032");
+        assertThat(strValue(power(2, 15))).endsWith("0032768");
+        assertThat(addDigits(power(2, 15))).isEqualTo(26);
+    }
+
+    @Test
+    public void testNextCollatz() throws Exception {
+        assertThat(nextCollatz(13)).isEqualTo(40);
+        assertThat(nextCollatz(40)).isEqualTo(20);
+    }
+
+    @Test
+    public void testLengthOfCollatz() throws Exception {
+        assertThat(lengthOfCollatz(13)).isEqualTo(10);
+
+    }
 }
