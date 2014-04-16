@@ -34,9 +34,9 @@ public class Problem22 {
         long sum = 0;
         int index = 1;
         for (String word : words) {
-            if(word.equalsIgnoreCase("COLIN")){
-                System.out.println("------------- " + index);
-            }
+//            if(word.equalsIgnoreCase("COLIN")){
+//                System.out.println("------------- " + index);
+//            }
 
             sum += index * wordSum(word);
             index++;

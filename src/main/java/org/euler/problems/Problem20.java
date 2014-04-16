@@ -13,6 +13,9 @@ public class Problem20 {
         System.out.println(addDigits(factorialBig(100)));
 
         System.out.println("time required: " + (System.currentTimeMillis() - now));
+        int t = 75+95+47+87+82+75+73+28+83+47+43+73+91+67+98;
+        System.out.println(t);
+
 
     }
 

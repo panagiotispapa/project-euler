@@ -208,6 +208,23 @@ public class ToolsTest {
     }
 
     @Test
+    public void testDeleteZerosFromBigNumberStrValue() throws Exception {
+        int[] bigSum = new int[100];
+
+        addNumberTo(bigSum, 4, 0);
+        addNumberTo(bigSum, 6, 0);
+        addNumberTo(bigSum, 3, 0);
+        addNumberTo(bigSum, 9, 0);
+        addNumberTo(bigSum, 19, 0);
+
+        assertThat(strValue(bigSum)).endsWith("00041");
+        assertThat(strValueTrimZeros(bigSum)).isEqualTo("41");
+
+
+    }
+
+
+    @Test
     public void testNextCollatz() throws Exception {
         assertThat(nextCollatz(13)).isEqualTo(40);
         assertThat(nextCollatz(40)).isEqualTo(20);
@@ -216,6 +233,19 @@ public class ToolsTest {
     @Test
     public void testLengthOfCollatz() throws Exception {
         assertThat(lengthOfCollatz(13)).isEqualTo(10);
+
+    }
+
+    @Test
+    public void testPermutationsChar() throws Exception {
+        assertThat(permutationsChar(new char[]{'0','1','2'})).containsOnly(
+                "012",
+                "021",
+                "102",
+                "120",
+                "201",
+                "210"
+        );
 
     }
 }

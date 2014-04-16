@@ -1,10 +1,16 @@
 package org.euler.util;
 
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import static com.google.common.collect.Iterables.concat;
+import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Character.getNumericValue;
+import static java.util.Collections.singletonList;
 
 public class Tools {
 
@@ -89,7 +95,7 @@ public class Tools {
 
     public static List<Integer> calculatePrimes(int N) {
 
-        List<Integer> primes = Lists.newArrayList();
+        List<Integer> primes = newArrayList();
 
         int primesCnt = 0;
 
@@ -137,7 +143,7 @@ public class Tools {
 
     public static List<Long> primeFactors(long numbers) {
         long n = numbers;
-        List<Long> factors = Lists.newArrayList();
+        List<Long> factors = newArrayList();
         for (long i = 2; i <= n / i; i++) {
             while (n % i == 0) {
                 factors.add(i);
@@ -311,7 +317,7 @@ public class Tools {
 //        List<Long> primeFactors = primeFactors(n);
         List<Long> primeFactors = primeFactors(n);
 
-        List<Integer> powers = Lists.newArrayList();
+        List<Integer> powers = newArrayList();
 
         long current = primeFactors.get(0);
 
@@ -344,6 +350,14 @@ public class Tools {
         int length = number.length();
         for (int i = 0; i < length; i++) {
             addNumberTo(bigSum, Character.getNumericValue(number.charAt(length - i - 1)), i);
+        }
+    }
+
+    public static void addNumberTo(int[] bigSum, int[] bigNumber) {
+
+        int length = bigNumber.length;
+        for (int i = 0; i < length; i++) {
+            addNumberTo(bigSum, bigNumber[i], i);
         }
     }
 
@@ -388,6 +402,7 @@ public class Tools {
 
         return bigNumber;
     }
+
     public static int[] power(int base, int power) {
 
         int[] bigNumber = new int[10000];
@@ -435,6 +450,12 @@ public class Tools {
         return builder.toString();
     }
 
+    public static String strValueTrimZeros(int[] bigNumber) {
+        String fullValue = strValue(bigNumber);
+
+        return fullValue.replaceAll("^0*", "");
+    }
+
     public static long nextCollatz(long number) {
 
         if (isEven(number)) {
@@ -455,6 +476,72 @@ public class Tools {
         }
         return size + 1;
     }
+
+    public static List<String> permutationsChar(char[] chars) {
+        char[] tmp = new char[chars.length];
+
+        List<String> result = newArrayList();
+
+        List<Character> excluded = newArrayList();
+        permutateChars(chars, tmp, 0, result, excluded);
+
+        return result;
+    }
+
+    private static void permutateChars(char[] charsOriginal, char[] tmp, int index, List<String> result, List<Character> excluded) {
+
+        if (index < charsOriginal.length - 1) {
+
+            for (char ch : charsOriginal) {
+                if (!excluded.contains(ch)) {
+                    tmp[index] = ch;
+                    permutateChars(charsOriginal, tmp, index + 1, result, newArrayList(concat(excluded, singletonList(ch))));
+                }
+            }
+        } else {
+
+            for (char ch : charsOriginal) {
+                if (!excluded.contains(ch)) {
+                    tmp[index] = ch;
+//                    print(tmp);
+                    result.add(String.valueOf(tmp));
+                }
+            }
+
+
+        }
+
+    }
+
+    private static void combineChars(char[] charsOriginal, char[] tmp, int index, List<String> result) {
+
+        if (index < charsOriginal.length - 1) {
+
+
+            for (char ch : charsOriginal) {
+                tmp[index] = ch;
+                combineChars(charsOriginal, tmp, index + 1, result);
+            }
+
+        } else {
+            for (char ch : charsOriginal) {
+                tmp[index] = ch;
+
+                print(tmp);
+                result.add(String.valueOf(tmp));
+            }
+
+        }
+
+    }
+
+    private static void print(char[] chars) {
+        for (char ch : chars) {
+            System.out.print(ch);
+        }
+        System.out.println();
+    }
+
 
 }
 
