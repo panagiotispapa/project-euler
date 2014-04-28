@@ -1,16 +1,13 @@
 package org.euler.util;
 
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
-import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Character.getNumericValue;
-import static java.util.Collections.singletonList;
 
 public class Tools {
 
@@ -156,6 +153,33 @@ public class Tools {
         return factors;
     }
 
+    public static Set<Long> properDivisors(long number) {
+        Set<Long> properDivisors = Sets.newTreeSet();
+        List<Long> primeFactors = primeFactors(number);
+
+        properDivisors.addAll(primeFactors);
+
+        for (int i = 2; i < primeFactors.size(); i++) {
+            List<List<Long>> combinations = combinationsKofN(primeFactors, i, false);
+            for (List<Long> combination : combinations) {
+                properDivisors.add(product(combination));
+            }
+        }
+
+        properDivisors.add(1L);
+        properDivisors.remove(number);
+        return properDivisors;
+    }
+
+    private static long product(Iterable<Long> numbers) {
+        long product = 1;
+        for (Long number : numbers) {
+            product *= number;
+        }
+        return product;
+
+    }
+
     public static boolean isPalindrome(String str) {
         int n = str.length();
         for (int i = 0; i < n / 2; i++) {
@@ -231,6 +255,15 @@ public class Tools {
     public static long sum(int... numbers) {
         long sum = 0L;
         for (int number : numbers) {
+            sum += number;
+        }
+        return sum;
+
+    }
+
+    public static long sum(Iterable<Long> numbers) {
+        long sum = 0L;
+        for (Long number : numbers) {
             sum += number;
         }
         return sum;
@@ -477,61 +510,101 @@ public class Tools {
         return size + 1;
     }
 
-    public static List<String> permutationsChar(char[] chars) {
-        char[] tmp = new char[chars.length];
+    public static <T> List<List<T>> combinationsKofN(List<T> items, int k, boolean withDuplicates) {
+        int[] selections = new int[k];
+        List<List<T>> results = Lists.newArrayList();
+        if (withDuplicates) {
+            combinationsKofNWithDuplicates(items, results, selections, 0);
+        } else {
+            combinationsKofNWithoutDuplicates(items, results, selections, 0);
+        }
+        return results;
 
-        List<String> result = newArrayList();
-
-        List<Character> excluded = newArrayList();
-        permutateChars(chars, tmp, 0, result, excluded);
-
-        return result;
     }
 
-    private static void permutateChars(char[] charsOriginal, char[] tmp, int index, List<String> result, List<Character> excluded) {
-
-        if (index < charsOriginal.length - 1) {
-
-            for (char ch : charsOriginal) {
-                if (!excluded.contains(ch)) {
-                    tmp[index] = ch;
-                    permutateChars(charsOriginal, tmp, index + 1, result, newArrayList(concat(excluded, singletonList(ch))));
-                }
-            }
+    private static <T> void combinationsKofNWithDuplicates(List<T> items, List<List<T>> results, int[] selections, int index) {
+        if (index == selections.length) {
+            copyToResults(items, selections, results);
         } else {
-
-            for (char ch : charsOriginal) {
-                if (!excluded.contains(ch)) {
-                    tmp[index] = ch;
-//                    print(tmp);
-                    result.add(String.valueOf(tmp));
-                }
+            final int start = index > 0 ? selections[index - 1] : 0;
+            for (int i = start; i < items.size(); i++) {
+                selections[index] = i;
+                combinationsKofNWithDuplicates(items, results, selections, index + 1);
             }
-
-
         }
 
     }
 
-    private static void combineChars(char[] charsOriginal, char[] tmp, int index, List<String> result) {
-
-        if (index < charsOriginal.length - 1) {
-
-
-            for (char ch : charsOriginal) {
-                tmp[index] = ch;
-                combineChars(charsOriginal, tmp, index + 1, result);
-            }
-
+    private static <T> void combinationsKofNWithoutDuplicates(List<T> items, List<List<T>> results, int[] selections, int index) {
+        if (index == selections.length) {
+            copyToResults(items, selections, results);
         } else {
-            for (char ch : charsOriginal) {
-                tmp[index] = ch;
-
-                print(tmp);
-                result.add(String.valueOf(tmp));
+            final int start = index > 0 ? selections[index - 1] + 1 : 0;
+            for (int i = start; i < items.size(); i++) {
+                selections[index] = i;
+                combinationsKofNWithoutDuplicates(items, results, selections, index + 1);
             }
-
         }
+
+    }
+
+    public static <T> List<List<T>> permutationsKofN(List<T> items, int k, boolean withDuplicates) {
+        int[] selections = new int[k];
+        List<List<T>> results = Lists.newArrayList();
+        if (withDuplicates) {
+            permutationsKofNWithDuplicates(items, results, selections, 0);
+        } else {
+            permutationsKofNWithoutDuplicates(items, results, selections, 0);
+        }
+        return results;
+
+    }
+
+    private static <T> void permutationsKofNWithDuplicates(List<T> items, List<List<T>> results, int[] selections, int index) {
+        if (index == selections.length) {
+            copyToResults(items, selections, results);
+        } else {
+//            final int start = index > 0 ? selections[index - 1] : 0;
+            for (int i = 0; i < items.size(); i++) {
+                selections[index] = i;
+                permutationsKofNWithDuplicates(items, results, selections, index + 1);
+            }
+        }
+
+    }
+
+    private static <T> void permutationsKofNWithoutDuplicates(List<T> items, List<List<T>> results, int[] selections, int index) {
+        if (index == selections.length) {
+            copyToResults(items, selections, results);
+        } else {
+            for (int i = 0; i < items.size(); i++) {
+
+                final boolean used = findIfUsed(index, selections, i);
+                if (!used) {
+                    selections[index] = i;
+                    permutationsKofNWithoutDuplicates(items, results, selections, index + 1);
+                }
+            }
+        }
+
+    }
+
+    private static boolean findIfUsed(int index, int[] selections, int current) {
+        for (int i = 0; i < index; i++) {
+            if (selections[i] == current) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static <T> void copyToResults(List<T> items, int[] selections, List<List<T>> results) {
+        List<T> result = Lists.newArrayList();
+        for (int selection : selections) {
+            result.add(items.get(selection));
+        }
+        results.add(result);
 
     }
 
@@ -542,6 +615,18 @@ public class Tools {
         System.out.println();
     }
 
+    public static long sumOfProperDivisors(long number) {
+        return sum(properDivisors(number));
+    }
+    public static boolean isPerfect(long number) {
+        return sumOfProperDivisors(number) == number;
+    }
+    public static boolean isDeficient(long number) {
+        return sumOfProperDivisors(number) < number;
+    }
+    public static boolean isAbundant(long number) {
+        return sumOfProperDivisors(number) > number;
+    }
 
 }
 

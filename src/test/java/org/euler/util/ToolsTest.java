@@ -2,8 +2,10 @@ package org.euler.util;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static java.util.Arrays.asList;
-import static java.util.Arrays.binarySearch;
 import static org.euler.util.Tools.*;
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -142,6 +144,20 @@ public class ToolsTest {
     @Test
     public void testPrimeFactors() throws Exception {
         assertThat(primeFactors(13195)).containsOnly(5L, 7L, 13L, 29L);
+
+
+    }
+
+    @Test
+    public void testProperDivisors() throws Exception {
+        assertThat(properDivisors(220)).containsOnly(1L, 2L, 4L, 5L, 10L, 11L, 20L, 22L, 44L, 55L, 110L);
+        assertThat(properDivisors(284)).containsOnly(1L, 2L, 4L, 71L, 142L);
+
+
+
+//        System.out.println(properDivisors(3));
+//        System.out.println(properDivisors(284));
+//        System.out.println(properDivisors(220));
     }
 
     @Test
@@ -220,9 +236,7 @@ public class ToolsTest {
         assertThat(strValue(bigSum)).endsWith("00041");
         assertThat(strValueTrimZeros(bigSum)).isEqualTo("41");
 
-
     }
-
 
     @Test
     public void testNextCollatz() throws Exception {
@@ -237,15 +251,31 @@ public class ToolsTest {
     }
 
     @Test
-    public void testPermutationsChar() throws Exception {
-        assertThat(permutationsChar(new char[]{'0','1','2'})).containsOnly(
-                "012",
-                "021",
-                "102",
-                "120",
-                "201",
-                "210"
-        );
+    public void testCombinationsKofN() throws Exception {
+        List<Integer> items = Arrays.asList(0, 1, 2, 3);
+
+        List<List<Integer>> comb2of4WithDuplicates = combinationsKofN(items, 2, true);
+//        System.out.println(comb2of4WithDuplicates);
+        assertThat(comb2of4WithDuplicates.size()).isEqualTo((int) combinationsWithRepetitionCnt(4, 2));
+
+        List<List<Integer>> comb2of4WithoutDuplicates = combinationsKofN(items, 2, false);
+//        System.out.println(comb2of4WithoutDuplicates);
+        assertThat(comb2of4WithoutDuplicates.size()).isEqualTo((int) combinationsWithoutRepetitionCnt(4, 2));
+
+        List<List<Integer>> perm2of4WithDuplicates = permutationsKofN(items, 2, true);
+//        System.out.println(perm2of4WithDuplicates);
+        assertThat(perm2of4WithDuplicates.size()).isEqualTo((int) permutationsCnt(4, 2));
+
+        List<List<Integer>> perm2of4WithoutDuplicates = permutationsKofN(items, 2, false);
+//        System.out.println(perm2of4WithoutDuplicates);
+        assertThat(perm2of4WithoutDuplicates.size()).isEqualTo((int) permutationsWithoutRepetitionCnt(4, 2));
+
+    }
+
+    @Test
+    public void testPerfectNumbers() throws Exception {
+        assertThat(isPerfect(28L)).isTrue();
+        assertThat(isAbundant(12L)).isTrue();
 
     }
 }
