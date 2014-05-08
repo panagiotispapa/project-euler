@@ -125,6 +125,34 @@ public class Tools {
         return primes;
     }
 
+    public static boolean[] calculatePrimes2(int N) {
+
+        int primesCnt = 0;
+
+        // initially assume all integers are prime
+        boolean[] isPrime = new boolean[N + 1];
+        for (int i = 2; i <= N; i++) {
+            isPrime[i] = true;
+            primesCnt++;
+        }
+
+        // mark non-primes <= N using Sieve of Eratosthenes
+        for (int i = 2; i * i <= N; i++) {
+
+            // if i is prime, then mark multiples of i as nonprime
+            // suffices to consider mutiples i, i+1, ..., N/i
+            if (isPrime[i]) {
+                for (int j = i; i * j <= N; j++) {
+                    isPrime[i * j] = false;
+                    primesCnt--;
+                }
+            }
+        }
+
+        return isPrime;
+
+    }
+
     public static boolean isPrime(long n) {
         //check if n is a multiple of 2
         if (n % 2 == 0) {
@@ -618,15 +646,33 @@ public class Tools {
     public static long sumOfProperDivisors(long number) {
         return sum(properDivisors(number));
     }
+
     public static boolean isPerfect(long number) {
         return sumOfProperDivisors(number) == number;
     }
+
     public static boolean isDeficient(long number) {
         return sumOfProperDivisors(number) < number;
     }
+
     public static boolean isAbundant(long number) {
         return sumOfProperDivisors(number) > number;
     }
+
+    public static int[] toBinary(int a) {
+        int[] b = new int[10];
+        int i = 0;
+        while (a != 0) {
+
+            b[i] = a % 2;
+            a = a / 2;
+            i++;
+        }
+
+        return b;
+    }
+
+
 
 }
 

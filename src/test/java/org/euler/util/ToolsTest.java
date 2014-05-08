@@ -2,6 +2,7 @@ package org.euler.util;
 
 import org.junit.Test;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
@@ -145,15 +146,12 @@ public class ToolsTest {
     public void testPrimeFactors() throws Exception {
         assertThat(primeFactors(13195)).containsOnly(5L, 7L, 13L, 29L);
 
-
     }
 
     @Test
     public void testProperDivisors() throws Exception {
         assertThat(properDivisors(220)).containsOnly(1L, 2L, 4L, 5L, 10L, 11L, 20L, 22L, 44L, 55L, 110L);
         assertThat(properDivisors(284)).containsOnly(1L, 2L, 4L, 71L, 142L);
-
-
 
 //        System.out.println(properDivisors(3));
 //        System.out.println(properDivisors(284));
@@ -276,6 +274,39 @@ public class ToolsTest {
     public void testPerfectNumbers() throws Exception {
         assertThat(isPerfect(28L)).isTrue();
         assertThat(isAbundant(12L)).isTrue();
+
+    }
+
+    @Test
+    public void testToBinary() throws Exception {
+
+        for (int i = 1; i < 102; i++) {
+            System.out.print(i + " ");
+            printArray(toBinary(i));
+        }
+
+    }
+
+    @Test
+    public void testPowers() throws Exception {
+
+        BigInteger[] powers = new BigInteger[9];
+        BigInteger current = new BigInteger("2");
+//        BigInteger b = new BigInteger("4294967296");
+//        b.multiply(new BigInteger("4294967296"));
+//        System.out.println(b.multiply(new BigInteger("4294967296")).toString());
+//        System.out.println(String.valueOf(4294967296L*4294967296L));
+        for (int i = 0; i < powers.length; i++) {
+            powers[i] = current;
+            current = current.multiply(current) ;
+//            System.out.printf("%d %s%n", i, String.valueOf(current) );
+//            System.out.println(current.toString());
+
+        }
+
+        for (BigInteger power : powers) {
+            System.out.println(power.toString());
+        }
 
     }
 }
