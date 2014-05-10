@@ -327,6 +327,16 @@ public class ToolsTest {
         assertThat(isPandigital(53, 3)).isFalse();
         assertThat(isPandigital(864975321, 9)).isTrue();
 
+        assertThat(isPandigital(123)).isTrue();
+        assertThat(isPandigital(143)).isFalse();
+        assertThat(isPandigital(122)).isFalse();
+        assertThat(isPandigital(102)).isFalse();
+        assertThat(isPandigital(53)).isFalse();
+        assertThat(isPandigital(864975321)).isTrue();
+        assertThat(isPandigital(4111)).isFalse();
+        assertThat(isPandigital(4211)).isFalse();
+
+
     }
 
     @Test

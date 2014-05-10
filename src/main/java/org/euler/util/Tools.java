@@ -3,12 +3,13 @@ package org.euler.util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Character.getNumericValue;
+import static java.lang.Integer.parseInt;
 
 public class Tools {
 
@@ -672,21 +673,41 @@ public class Tools {
         return digits;
     }
 
+    public static boolean isPandigital(int number) {
+        return isPandigital(digitsOfNumber(number));
+    }
+
+    public static boolean isPandigital(List<Integer> digits) {
+        Collections.sort(digits);
+        int size = digits.size();
+
+        if (size > 9) {
+            return false;
+        }
+
+        for (int i = 0; i < size; i++) {
+//            System.out.println(digits.get(i) + " " + index);
+
+            if (digits.get(i) != (i+1)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public static boolean isPandigital(int number, int n) {
-        TreeSet<Integer> digits = Sets.newTreeSet(digitsOfNumber(number));
-        return digits.size() == n && digits.last() == n && digits.first() == 1;
+        List<Integer> digits = digitsOfNumber(number);
+        return digits.size() == n && isPandigital(digits);
 
     }
 
     public static boolean isPandigital(String number, int n) {
-        TreeSet<Character> digits = Sets.newTreeSet();
-        for (char ch : number.toCharArray()) {
-            digits.add(ch);
-        }
-
-        return digits.size() == n && getNumericValue(digits.last()) == n && getNumericValue(digits.first()) == 1;
-
+        return isPandigital(parseInt(number), n);
     }
+//    public static boolean isPandigital(String number, int n) {
+//        return isPandigital(parseInt(number), n);
+//    }
 
     public static boolean isPalindrome(String str) {
         int n = str.length();
