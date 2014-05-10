@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Character.getNumericValue;
@@ -206,16 +207,6 @@ public class Tools {
         }
         return product;
 
-    }
-
-    public static boolean isPalindrome(String str) {
-        int n = str.length();
-        for (int i = 0; i < n / 2; i++) {
-            if (str.charAt(i) != str.charAt(n - i - 1)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public static long product(char[] numbers) {
@@ -659,20 +650,105 @@ public class Tools {
         return sumOfProperDivisors(number) > number;
     }
 
-    public static int[] toBinary(int a) {
-        int[] b = new int[10];
-        int i = 0;
-        while (a != 0) {
+    public static List<Integer> toBinary(int a) {
+        List<Integer> b = Lists.newArrayList();
 
-            b[i] = a % 2;
-            a = a / 2;
-            i++;
+        while (a != 0) {
+            b.add(a % 2);
+            a /= 2;
         }
 
         return b;
     }
 
+    public static List<Integer> digitsOfNumber(int number) {
+        List<Integer> digits = Lists.newArrayList();
 
+        while (number > 0) {
+            digits.add(number % 10);
+            number /= 10;
+        }
+
+        return digits;
+    }
+
+    public static boolean isPandigital(int number, int n) {
+        TreeSet<Integer> digits = Sets.newTreeSet(digitsOfNumber(number));
+        return digits.size() == n && digits.last() == n && digits.first() == 1;
+
+    }
+
+    public static boolean isPandigital(String number, int n) {
+        TreeSet<Character> digits = Sets.newTreeSet();
+        for (char ch : number.toCharArray()) {
+            digits.add(ch);
+        }
+
+        return digits.size() == n && getNumericValue(digits.last()) == n && getNumericValue(digits.first()) == 1;
+
+    }
+
+    public static boolean isPalindrome(String str) {
+        int n = str.length();
+        for (int i = 0; i < n / 2; i++) {
+            if (str.charAt(i) != str.charAt(n - i - 1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isPalindromic(int number) {
+
+        return isPalindromic(digitsOfNumber(number));
+
+    }
+
+    public static boolean isPalindromic(List<Integer> digits) {
+
+        for (int i = 0; i < digits.size() / 2; i++) {
+            if (!digits.get(i).equals(digits.get(digits.size() - 1 - i))) {
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
+    public static boolean isTruncatableLR(int number, boolean[] isPrime) {
+
+        String str = String.valueOf(number);
+
+        int length = str.length();
+        for (int i = 1; i < length; i++) {
+            String substring = str.substring(i, length);
+//            System.out.println(substring);
+            if (!isPrime[Integer.valueOf(substring)]) {
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
+    public static boolean isTruncatableRL(int number, boolean[] isPrime) {
+
+        String str = String.valueOf(number);
+
+        int length = str.length();
+        for (int i = 1; i < length; i++) {
+            String substring = str.substring(0, length - i);
+//            System.out.println(substring);
+            if (!isPrime[Integer.valueOf(substring)]) {
+                return false;
+            }
+        }
+
+        return true;
+
+    }
 
 }
 

@@ -2,7 +2,7 @@ package org.euler.problems;
 
 import org.euler.util.Tools;
 
-import static java.lang.Character.getNumericValue;
+import static org.euler.util.Tools.digitsOfNumber;
 
 public class Problem34 {
 
@@ -17,11 +17,11 @@ public class Problem34 {
 
         long total = 0;
 
-        for (long i = 3; i < 20000000; i++) {
-            String str = String.valueOf(i);
+        for (int i = 3; i < 20000000; i++) {
             long sum = 0;
-            for (int j = 0; j < str.length(); j++) {
-                sum += factorials[getNumericValue(str.charAt(j))];
+
+            for (Integer number : digitsOfNumber(i)) {
+                sum += factorials[number];
             }
 
 
@@ -30,7 +30,7 @@ public class Problem34 {
                 total+=i;
             }
         }
-
+        //40730
         System.out.println("total "+ total);
         System.out.println("time required: " + (System.currentTimeMillis() - now));
 

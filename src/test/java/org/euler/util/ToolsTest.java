@@ -281,8 +281,8 @@ public class ToolsTest {
     public void testToBinary() throws Exception {
 
         for (int i = 1; i < 102; i++) {
-            System.out.print(i + " ");
-            printArray(toBinary(i));
+            System.out.println(i + " " + toBinary(i));
+//            printArray(toBinary(i));
         }
 
     }
@@ -298,7 +298,7 @@ public class ToolsTest {
 //        System.out.println(String.valueOf(4294967296L*4294967296L));
         for (int i = 0; i < powers.length; i++) {
             powers[i] = current;
-            current = current.multiply(current) ;
+            current = current.multiply(current);
 //            System.out.printf("%d %s%n", i, String.valueOf(current) );
 //            System.out.println(current.toString());
 
@@ -307,6 +307,48 @@ public class ToolsTest {
         for (BigInteger power : powers) {
             System.out.println(power.toString());
         }
+
+    }
+
+    @Test
+    public void testDigitsOfNumber() throws Exception {
+
+        assertThat(digitsOfNumber(134)).containsOnly(1, 3, 4);
+//        System.out.println(digitsOfNumber(897));
+
+    }
+
+    @Test
+    public void testIsPandigital() throws Exception {
+        assertThat(isPandigital(123, 3)).isTrue();
+        assertThat(isPandigital(143, 3)).isFalse();
+        assertThat(isPandigital(122, 3)).isFalse();
+        assertThat(isPandigital(102, 3)).isFalse();
+        assertThat(isPandigital(53, 3)).isFalse();
+        assertThat(isPandigital(864975321, 9)).isTrue();
+
+    }
+
+    @Test
+    public void testIsPalindromic() throws Exception {
+        assertThat(isPalindromic(4)).isTrue();
+        assertThat(isPalindromic(44)).isTrue();
+        assertThat(isPalindromic(121)).isTrue();
+        assertThat(isPalindromic(1221)).isTrue();
+        assertThat(isPalindromic(12121)).isTrue();
+        assertThat(isPalindromic(12121)).isTrue();
+
+        assertThat(isPalindromic(43)).isFalse();
+        assertThat(isPalindromic(433)).isFalse();
+        assertThat(isPalindromic(4233)).isFalse();
+
+    }
+
+    @Test
+    public void testIsTruncatable() throws Exception {
+        boolean[] primes = calculatePrimes2(1000000);
+        assertThat(isTruncatableLR(3797, primes)).isTrue();
+        assertThat(isTruncatableRL(3797, primes)).isTrue();
 
     }
 }

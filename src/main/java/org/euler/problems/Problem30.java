@@ -1,6 +1,6 @@
 package org.euler.problems;
 
-import static java.lang.Character.getNumericValue;
+import org.euler.util.Tools;
 
 public class Problem30 {
 
@@ -12,24 +12,22 @@ public class Problem30 {
             powers[i] = i * i * i * i * i;
         }
 
-
         long total = 0;
 
-        for (long i = 2; i < 20000000; i++) {
-            String str = String.valueOf(i);
-            long sum = 0;
-            for (int j = 0; j < str.length(); j++) {
-                sum += powers[getNumericValue(str.charAt(j))];
-            }
+        for (int i = 2; i < 20000000; i++) {
 
+            long sum = 0;
+            for (Integer number : Tools.digitsOfNumber(i)) {
+                sum += powers[number];
+            }
 
             if (sum == i) {
                 System.out.println(i);
-                total+=i;
+                total += i;
             }
         }
 
-        System.out.println("total "+ total);
+        System.out.println("total " + total);
         System.out.println("time required: " + (System.currentTimeMillis() - now));
 
     }
