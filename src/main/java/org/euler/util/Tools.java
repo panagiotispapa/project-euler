@@ -683,6 +683,18 @@ public class Tools {
         return digits;
     }
 
+    public static long toNumber(List<Integer> digits) {
+        long n = 0;
+        long level = 1;
+        for (Integer digit : digits) {
+            n += digit * level;
+            level *= 10;
+        }
+
+        return n;
+    }
+
+
     public static boolean isPandigital(int number) {
         return isPandigital(digitsOfNumber(number));
     }
@@ -779,6 +791,19 @@ public class Tools {
 
         return true;
 
+    }
+
+    public static List<Integer> nextPerm(List<Integer> digits) {
+
+        List<Integer> next = Lists.newArrayList();
+
+
+        for (int i = 1; i < digits.size(); i++) {
+            next.add(digits.get(i));
+        }
+
+        next.add(digits.get(0));
+        return next;
     }
 
 }

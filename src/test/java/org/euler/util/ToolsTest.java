@@ -361,4 +361,11 @@ public class ToolsTest {
         assertThat(isTruncatableRL(3797, primes)).isTrue();
 
     }
+
+    @Test
+    public void testNextPerm() throws Exception {
+
+        assertThat(nextPerm(Arrays.asList(1,4,8,7))).isEqualTo(Arrays.asList(4,8,7,1));
+
+    }
 }
