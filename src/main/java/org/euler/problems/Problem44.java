@@ -12,7 +12,6 @@ public class Problem44 {
         long[] pents = new long[10500];
         Set<Long> pentsSet = Sets.newHashSet();
 
-
         for (int i = 0; i < pents.length; i++) {
             pents[i] = pent(i + 1);
             pentsSet.add(pents[i]);
@@ -24,8 +23,8 @@ public class Problem44 {
 
         for (int i = 0; i < pents.length - 1; i++) {
             for (int j = i + 1; j < pents.length; j++) {
-                if(pentsSet.contains(pents[i]+pents[j]) && pentsSet.contains(pents[j]-pents[i])) {
-                    System.out.println("!!!!!!! " +pents[i] + " " + pents[j] + " " + (pents[j]-pents[i]));
+                if (pentsSet.contains(pents[i] + pents[j]) && pentsSet.contains(pents[j] - pents[i])) {
+                    System.out.println("!!!!!!! " + pents[i] + " " + pents[j] + " " + (pents[j] - pents[i]));
                 }
             }
         }
