@@ -672,6 +672,16 @@ public class Tools {
 
         return digits;
     }
+    public static List<Integer> digitsOfNumber(long number) {
+        List<Integer> digits = Lists.newArrayList();
+
+        while (number > 0) {
+            digits.add((int) (number % 10));
+            number /= 10;
+        }
+
+        return digits;
+    }
 
     public static boolean isPandigital(int number) {
         return isPandigital(digitsOfNumber(number));
