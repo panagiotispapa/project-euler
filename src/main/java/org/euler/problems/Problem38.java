@@ -5,6 +5,8 @@ import org.euler.util.Tools;
 
 import java.util.TreeSet;
 
+import static org.euler.util.Tools.sortLong;
+
 public class Problem38 {
 
     public static void main(String[] args) {
@@ -37,10 +39,27 @@ public class Problem38 {
             }
         }
 
+//        918273645
+//        926718534
+//        927318546
+//        932718654
+//        max 932718654
+//        time required: 11932
+
+
         System.out.println("max " + set.last());
         System.out.println("time required: " + (System.currentTimeMillis() - now));
 
     }
+
+
+
+//    private static boolean isPandigital(long n) {
+//
+//        return sortLong(n) == 987654321;
+//
+//    }
+
 
     //private static String
 

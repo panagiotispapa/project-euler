@@ -280,10 +280,12 @@ public class ToolsTest {
     @Test
     public void testToBinary() throws Exception {
 
-        for (int i = 1; i < 102; i++) {
-            System.out.println(i + " " + toBinary(i));
-//            printArray(toBinary(i));
-        }
+        assertThat(toBinary(3)).isEqualTo(11);
+        assertThat(toBinary(5)).isEqualTo(101);
+        assertThat(toBinary(6)).isEqualTo(110);
+        assertThat(toBinary(4)).isEqualTo(100);
+        assertThat(toBinaryStr(4)).isEqualTo("100");
+        assertThat(toBinaryStr(1000000)).isEqualTo("11110100001001000000");
 
     }
 
@@ -327,30 +329,52 @@ public class ToolsTest {
         assertThat(isPandigital(53, 3)).isFalse();
         assertThat(isPandigital(864975321, 9)).isTrue();
 
-        assertThat(isPandigital(123)).isTrue();
-        assertThat(isPandigital(143)).isFalse();
-        assertThat(isPandigital(122)).isFalse();
-        assertThat(isPandigital(102)).isFalse();
-        assertThat(isPandigital(53)).isFalse();
-        assertThat(isPandigital(864975321)).isTrue();
-        assertThat(isPandigital(4111)).isFalse();
-        assertThat(isPandigital(4211)).isFalse();
+//        assertThat(isPandigital(123)).isTrue();
+//        assertThat(isPandigital(143)).isFalse();
+//        assertThat(isPandigital(122)).isFalse();
+//        assertThat(isPandigital(102)).isFalse();
+//        assertThat(isPandigital(53)).isFalse();
+//        assertThat(isPandigital(864975321)).isTrue();
+//        assertThat(isPandigital(4111)).isFalse();
+//        assertThat(isPandigital(4211)).isFalse();
+
+//        assertThat(isPandigital(123, 1, 3)).isTrue();
+//        assertThat(isPandigital(143, 1, 3)).isFalse();
+//        assertThat(isPandigital(122, 1, 3)).isFalse();
+//        assertThat(isPandigital(102, 1, 3)).isFalse();
+//        assertThat(isPandigital(53, 1, 3)).isFalse();
+//        assertThat(isPandigital(864975321, 1, 9)).isTrue();
+//        assertThat(isPandigital(4111, 1, 9)).isFalse();
+//        assertThat(isPandigital(4211, 1, 9)).isFalse();
+//
+//
+        assertThat(isNPandigital(123)).isTrue();
+        assertThat(isNPandigital(123)).isTrue();
+        assertThat(isNPandigital(143)).isFalse();
+        assertThat(isNPandigital(122)).isFalse();
+        assertThat(isNPandigital(102)).isFalse();
+        assertThat(isNPandigital(53)).isFalse();
+        assertThat(isNPandigital(864975321)).isTrue();
+        assertThat(isNPandigital(4111)).isFalse();
+        assertThat(isNPandigital(4211)).isFalse();
+        assertThat(isNPandigital(1009)).isFalse();
+        assertThat(isNPandigital(1007767)).isFalse();
 
 
     }
 
     @Test
-    public void testIsPalindromic() throws Exception {
-        assertThat(isPalindromic(4)).isTrue();
-        assertThat(isPalindromic(44)).isTrue();
-        assertThat(isPalindromic(121)).isTrue();
-        assertThat(isPalindromic(1221)).isTrue();
-        assertThat(isPalindromic(12121)).isTrue();
-        assertThat(isPalindromic(12121)).isTrue();
+    public void testIsPalindromee() throws Exception {
+        assertThat(isPalindrome(4)).isTrue();
+        assertThat(isPalindrome(44)).isTrue();
+        assertThat(isPalindrome(121)).isTrue();
+        assertThat(isPalindrome(1221)).isTrue();
+        assertThat(isPalindrome(12121)).isTrue();
+        assertThat(isPalindrome(12121)).isTrue();
 
-        assertThat(isPalindromic(43)).isFalse();
-        assertThat(isPalindromic(433)).isFalse();
-        assertThat(isPalindromic(4233)).isFalse();
+        assertThat(isPalindrome(43)).isFalse();
+        assertThat(isPalindrome(433)).isFalse();
+        assertThat(isPalindrome(4233)).isFalse();
 
     }
 
@@ -365,7 +389,27 @@ public class ToolsTest {
     @Test
     public void testNextPerm() throws Exception {
 
-        assertThat(nextPerm(Arrays.asList(1,4,8,7))).isEqualTo(Arrays.asList(4,8,7,1));
+        assertThat(nextPerm(Arrays.asList(1, 4, 8, 7))).isEqualTo(Arrays.asList(4, 8, 7, 1));
+
+    }
+
+    @Test
+    public void testReverse() throws Exception {
+        assertThat(reverse(132)).isEqualTo(231);
+        assertThat(reverse(15436)).isEqualTo(63451);
+
+    }
+
+    @Test
+    public void testSort() throws Exception {
+        assertThat(sortInt(14423)).isEqualTo(44321);
+        assertThat(sortInt(589064)).isEqualTo(986540);
+    }
+
+    @Test
+    public void testConcatInts() throws Exception {
+
+        assertThat(concatInts(132,54)).isEqualTo(13254);
 
     }
 }

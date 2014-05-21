@@ -13,6 +13,16 @@ import static java.lang.Integer.parseInt;
 
 public class Tools {
 
+    public static int powers10[] = new int[10];
+
+    static {
+        powers10[0] = 1;
+        for (int i = 1; i < powers10.length; i++) {
+            powers10[i] = powers10[i - 1] * 10;
+        }
+
+    }
+
     public static boolean isFactorOfAny(int a, int... possibleFactors) {
 
         for (int possibleFactor : possibleFactors) {
@@ -651,15 +661,42 @@ public class Tools {
         return sumOfProperDivisors(number) > number;
     }
 
-    public static List<Integer> toBinary(int a) {
-        List<Integer> b = Lists.newArrayList();
+    public static long toBinary(int a) {
 
-        while (a != 0) {
-            b.add(a % 2);
+        long binary = 0;
+        long index = 1;
+
+        while (a > 0) {
+            binary += (a % 2) * index;
+//            System.out.println(a % 2);
+//            System.out.println(binary);
+
+            index *= 10;
             a /= 2;
         }
 
-        return b;
+        return binary;
+    }
+
+    public static String toBinaryStr(int a) {
+
+        StringBuilder builder = new StringBuilder();
+
+//        long binary = 0;
+//        long index = 1;
+
+        while (a > 0) {
+            builder.append(a % 2);
+
+//            binary += (a % 2) * index;
+//            System.out.println(a % 2);
+//            System.out.println(binary);
+
+//            index *= 10;
+            a /= 2;
+        }
+
+        return builder.reverse().toString();
     }
 
     public static List<Integer> digitsOfNumber(int number) {
@@ -672,6 +709,7 @@ public class Tools {
 
         return digits;
     }
+
     public static List<Integer> digitsOfNumber(long number) {
         List<Integer> digits = Lists.newArrayList();
 
@@ -694,11 +732,10 @@ public class Tools {
         return n;
     }
 
-
-    public static boolean isPandigital(int number) {
-        return isPandigital(digitsOfNumber(number));
-    }
-
+    //    public static boolean isPandigital(int number) {
+//        return isPandigital(digitsOfNumber(number));
+//    }
+//
     public static boolean isPandigital(List<Integer> digits) {
         Collections.sort(digits);
         int size = digits.size();
@@ -710,7 +747,7 @@ public class Tools {
         for (int i = 0; i < size; i++) {
 //            System.out.println(digits.get(i) + " " + index);
 
-            if (digits.get(i) != (i+1)) {
+            if (digits.get(i) != (i + 1)) {
                 return false;
             }
         }
@@ -739,24 +776,6 @@ public class Tools {
             }
         }
         return true;
-    }
-
-    public static boolean isPalindromic(int number) {
-
-        return isPalindromic(digitsOfNumber(number));
-
-    }
-
-    public static boolean isPalindromic(List<Integer> digits) {
-
-        for (int i = 0; i < digits.size() / 2; i++) {
-            if (!digits.get(i).equals(digits.get(digits.size() - 1 - i))) {
-                return false;
-            }
-        }
-
-        return true;
-
     }
 
     public static boolean isTruncatableLR(int number, boolean[] isPrime) {
@@ -797,13 +816,183 @@ public class Tools {
 
         List<Integer> next = Lists.newArrayList();
 
-
         for (int i = 1; i < digits.size(); i++) {
             next.add(digits.get(i));
         }
 
         next.add(digits.get(0));
         return next;
+    }
+
+    public static int reverse(int n) {
+        int reverse = 0;
+        while (n > 0) {
+            reverse = reverse * 10 + n % 10;
+            n /= 10;
+        }
+
+        return reverse;
+    }
+
+    public static long reverse(long n) {
+        long reverse = 0;
+        while (n > 0) {
+            reverse = reverse * 10 + n % 10;
+            n /= 10;
+        }
+
+        return reverse;
+    }
+
+    public static boolean isPalindrome(int n) {
+        return n == reverse(n);
+    }
+
+    public static boolean isPalindrome(long n) {
+        return n == reverse(n);
+    }
+
+    public static int sortInt(int n) {
+        int[] tmp = new int[10];
+
+        while (n > 0) {
+            tmp[n % 10]++;
+            n /= 10;
+        }
+        int toR = 0;
+        int index = 1;
+
+        for (int i = 0; i < tmp.length; i++) {
+            for (int j = 0; j < tmp[i]; j++) {
+                toR += i * index;
+                index *= 10;
+            }
+        }
+
+        return toR;
+
+    }
+
+    public static long sortLong(long n) {
+        int[] tmp = new int[10];
+
+        while (n > 0) {
+            tmp[(int) (n % 10)]++;
+            n /= 10;
+        }
+        long toR = 0;
+        int index = 1;
+
+        for (int i = 0; i < tmp.length; i++) {
+            for (int j = 0; j < tmp[i]; j++) {
+                toR += i * index;
+                index *= 10;
+            }
+        }
+
+        return toR;
+
+    }
+
+//    public static boolean isPandigital(int n, int start, int end) {
+//
+//        int expected = 0;
+//
+//        int current = 1;
+//
+//        for (int i = start; i <= end; i++) {
+//            expected += i * current;
+//            current *= 10;
+//        }
+//
+//        int actual = 0;
+//        while (n > 0) {
+//            int digit = n % 10;
+//            if (digit < start) {
+//                return false;
+//            }
+//            actual += powers10[digit - 1] * digit;
+//            n /= 10;
+//        }
+//
+//
+//        return expected == actual;
+//    }
+
+    public static boolean isNPandigital(int n) {
+        int sorted = sortInt(n);
+        int index = 1;
+
+        while (sorted > 0) {
+            if (index != sorted % 10) {
+                return false;
+            }
+            index++;
+            sorted /= 10;
+        }
+
+        return true;
+    }
+
+    private static int getSizeOf(int n) {
+        int actualSize = 0;
+        while (n > 0) {
+            actualSize++;
+            n /= 10;
+        }
+        return actualSize;
+
+    }
+
+    public static int getMaxDigit(int n) {
+        int max = 0;
+        while (n > 0) {
+            int digit = n % 10;
+            if (digit > max) {
+                max = digit;
+            }
+            n /= 10;
+        }
+        return max;
+
+    }
+
+    public static int concatInts(int... numbers) {
+        int concat = 0;
+
+        int index = 1;
+
+        for (int i = numbers.length - 1; i >= 0; i--) {
+            int number = numbers[i];
+            while(number>0){
+//                System.out.println(number%10);
+                concat += (number % 10) * index;
+                number /= 10;
+                index *= 10;
+            }
+        }
+
+        return concat;
+
+    }
+
+    public static long concatLongs(long... numbers) {
+        long concat = 0;
+
+        long index = 1;
+
+        for (int i = numbers.length - 1; i >= 0; i--) {
+            long number = numbers[i];
+            while(number>0){
+//                System.out.println(number%10);
+                concat += (number % 10) * index;
+                number /= 10;
+                index *= 10;
+            }
+        }
+
+        return concat;
+
     }
 
 }
