@@ -13,7 +13,7 @@ public class Problem4 {
         for (int i = limMin; i <= limMax; i++) {
             for (int j = i; j <= limMax; j++) {
                 long product = i * j;
-                if (isPalindrome(String.valueOf(product))) {
+                if (isPalindrome(product, 10)) {
 //                    System.out.printf("(%d,%d) %d%n", i, j, product);
                     if (product > max) {
                         max = product;
@@ -21,6 +21,8 @@ public class Problem4 {
                 }
             }
         }
+//        max 906609
+//        time required: 153
 
         System.out.println("max " + max);
 

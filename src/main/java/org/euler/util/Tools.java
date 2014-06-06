@@ -356,8 +356,8 @@ public class Tools {
     }
 
     public static long factorial(int n) {
-        long factorial = 1;
-        for (int i = 0; i < n; i++) {
+        long factorial = 1L;
+        for (long i = 0; i < n; i++) {
             factorial *= (i + 1);
         }
 
@@ -824,32 +824,32 @@ public class Tools {
         return next;
     }
 
-    public static int reverse(int n) {
+    public static int reverse(int n, int base) {
         int reverse = 0;
         while (n > 0) {
-            reverse = reverse * 10 + n % 10;
-            n /= 10;
+            reverse = reverse * base + n % base;
+            n /= base;
         }
 
         return reverse;
     }
 
-    public static long reverse(long n) {
+    public static long reverse(long n, int base) {
         long reverse = 0;
         while (n > 0) {
-            reverse = reverse * 10 + n % 10;
-            n /= 10;
+            reverse = reverse * base + n % base;
+            n /= base;
         }
 
         return reverse;
     }
 
-    public static boolean isPalindrome(int n) {
-        return n == reverse(n);
+    public static boolean isPalindrome(int n, int base) {
+        return n == reverse(n, base);
     }
 
-    public static boolean isPalindrome(long n) {
-        return n == reverse(n);
+    public static boolean isPalindrome(long n, int base) {
+        return n == reverse(n, base);
     }
 
     public static int sortInt(int n) {
@@ -964,7 +964,7 @@ public class Tools {
 
         for (int i = numbers.length - 1; i >= 0; i--) {
             int number = numbers[i];
-            while(number>0){
+            while (number > 0) {
 //                System.out.println(number%10);
                 concat += (number % 10) * index;
                 number /= 10;
@@ -983,7 +983,7 @@ public class Tools {
 
         for (int i = numbers.length - 1; i >= 0; i--) {
             long number = numbers[i];
-            while(number>0){
+            while (number > 0) {
 //                System.out.println(number%10);
                 concat += (number % 10) * index;
                 number /= 10;

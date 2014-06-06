@@ -365,16 +365,16 @@ public class ToolsTest {
 
     @Test
     public void testIsPalindromee() throws Exception {
-        assertThat(isPalindrome(4)).isTrue();
-        assertThat(isPalindrome(44)).isTrue();
-        assertThat(isPalindrome(121)).isTrue();
-        assertThat(isPalindrome(1221)).isTrue();
-        assertThat(isPalindrome(12121)).isTrue();
-        assertThat(isPalindrome(12121)).isTrue();
+        assertThat(isPalindrome(4,10)).isTrue();
+        assertThat(isPalindrome(44,10)).isTrue();
+        assertThat(isPalindrome(121,10)).isTrue();
+        assertThat(isPalindrome(1221,10)).isTrue();
+        assertThat(isPalindrome(12121,10)).isTrue();
+        assertThat(isPalindrome(12121,10)).isTrue();
 
-        assertThat(isPalindrome(43)).isFalse();
-        assertThat(isPalindrome(433)).isFalse();
-        assertThat(isPalindrome(4233)).isFalse();
+        assertThat(isPalindrome(43,10)).isFalse();
+        assertThat(isPalindrome(433,10)).isFalse();
+        assertThat(isPalindrome(4233,10)).isFalse();
 
     }
 
@@ -395,8 +395,8 @@ public class ToolsTest {
 
     @Test
     public void testReverse() throws Exception {
-        assertThat(reverse(132)).isEqualTo(231);
-        assertThat(reverse(15436)).isEqualTo(63451);
+        assertThat(reverse(132,10)).isEqualTo(231);
+        assertThat(reverse(15436,10)).isEqualTo(63451);
 
     }
 
